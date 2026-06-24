@@ -6,13 +6,13 @@
     <title>Lab 6: HTTP Web Server Cục Bộ & Mạng LAN Nội Bộ</title>
     <style>
         :root {
-            --primary: #1e3d59;
+            --primary: #0f3d6b; /* Xanh Phenikaa */
             --secondary: #ff6e40;
-            --bg-body: #f5f7fa;
+            --bg-body: #f4f6f9;
             --bg-card: #ffffff;
-            --text-main: #333333;
-            --text-light: #666666;
-            --border: #e1e4e8;
+            --text-main: #2c3e50;
+            --text-light: #596a7b;
+            --border: #dce1e6;
             --note-bg: #e1f5fe;
             --note-border: #03a9f4;
             --warning-bg: #fff3e0;
@@ -42,8 +42,22 @@
             margin: 0 auto;
             background: var(--bg-card);
             padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .uni-title {
+            font-size: 1.1em;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: 600;
         }
 
         h1, h2, h3, h4 {
@@ -53,50 +67,56 @@
 
         h1 {
             font-size: 2.2em;
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 10px;
-            margin-top: 0;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 15px;
+            margin-top: 10px;
         }
 
         h2 {
-            font-size: 1.5em;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 5px;
+            font-size: 1.6em;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px;
             margin-top: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .meta-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), #1a5c9e);
             color: white;
             padding: 20px;
-            border-radius: 6px;
+            border-radius: 8px;
             margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .meta-item strong {
             display: block;
-            font-size: 0.9em;
+            font-size: 0.85em;
             color: #bbdefb;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            margin-bottom: 5px;
         }
 
         .section-card {
             background: #fff;
             border: 1px solid var(--border);
             border-left: 5px solid var(--primary);
-            padding: 20px;
+            padding: 25px;
             margin-bottom: 20px;
-            border-radius: 4px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
         .callout {
             padding: 15px 20px;
             margin: 20px 0;
-            border-radius: 4px;
+            border-radius: 6px;
             border-left: 5px solid;
         }
 
@@ -109,130 +129,219 @@
         .callout-title {
             font-weight: bold;
             margin-bottom: 8px;
-            display: block;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             text-transform: uppercase;
-            font-size: 0.9em;
+            font-size: 0.95em;
         }
-
-        .note-box .callout-title { color: #0277bd; }
-        .warning-box .callout-title { color: #e65100; }
-        .mentor-box .callout-title { color: #6a1b9a; }
-        .student-box .callout-title { color: #2e7d32; }
-        .danger-box .callout-title { color: #c62828; }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
             font-size: 0.95em;
+            background: white;
         }
 
         th, td {
             border: 1px solid var(--border);
-            padding: 12px 15px;
+            padding: 15px;
             text-align: left;
         }
 
         th {
-            background-color: #f1f3f5;
+            background-color: #f8f9fa;
             color: var(--primary);
-            font-weight: bold;
+            font-weight: 600;
         }
 
         pre {
-            background: #2d2d2d;
-            color: #ccc;
-            padding: 15px;
-            border-radius: 6px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
             overflow-x: auto;
             font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 0.9em;
+            font-size: 0.95em;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
         }
 
         code {
             font-family: 'Consolas', 'Courier New', monospace;
             background: #f1f3f5;
             color: #d63384;
-            padding: 2px 5px;
-            border-radius: 3px;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
         }
-
+        
         .placeholder {
-            color: var(--placeholder-color);
+            color: #ff5252;
             font-weight: bold;
-            background: rgba(211, 47, 47, 0.1);
+            background: rgba(255, 82, 82, 0.1);
             padding: 2px 4px;
             border-radius: 3px;
         }
 
-        pre code {
-            background: none;
-            color: inherit;
-            padding: 0;
-        }
+        pre code { background: none; color: inherit; padding: 0; }
 
         kbd {
             background-color: var(--keyboard-bg);
             border: 1px solid var(--keyboard-border);
-            border-radius: 3px;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+            border-radius: 4px;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.2);
             color: #333;
             display: inline-block;
             font-family: sans-serif;
             font-size: 0.85em;
             font-weight: 700;
-            line-height: 1;
-            padding: 2px 5px;
-            white-space: nowrap;
+            padding: 3px 8px;
+            margin: 0 2px;
         }
-
-        ul, ol { padding-left: 25px; }
-        li { margin-bottom: 8px; }
 
         .toc {
             background: #f8f9fa;
             border: 1px solid var(--border);
-            padding: 20px;
-            border-radius: 6px;
+            padding: 25px;
+            border-radius: 8px;
             margin-bottom: 30px;
         }
-        .toc ul { list-style-type: none; padding-left: 0; }
-        .toc li { margin-bottom: 5px; }
-        .toc a { color: var(--primary); text-decoration: none; }
-        .toc a:hover { text-decoration: underline; }
+        .toc strong { font-size: 1.2em; color: var(--primary); display: block; margin-bottom: 15px; }
+        .toc ul { list-style-type: none; padding-left: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px; }
+        .toc li::before { content: "🔹"; margin-right: 8px; font-size: 0.8em; }
+        .toc a { color: var(--text-main); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        .toc a:hover { color: var(--primary); text-decoration: underline; }
 
         .step-number {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             background: var(--primary);
             color: white;
-            width: 24px;
-            height: 24px;
-            text-align: center;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
-            line-height: 24px;
             margin-right: 10px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        /* --- STYLES CHO SƠ ĐỒ KHỐI (DIAGRAMS) --- */
+        .diagram-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: #f8fcfd;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px dashed var(--note-border);
+            margin: 20px 0;
+        }
+
+        .diagram-box {
+            background: white;
+            border: 2px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            min-width: 140px;
+            flex: 1;
+        }
+
+        .diagram-box span {
+            display: block;
+            font-size: 0.8em;
+            color: var(--text-light);
+            font-weight: normal;
+            margin-top: 8px;
+            border-top: 1px solid #eee;
+            padding-top: 8px;
+        }
+
+        .diagram-arrow {
+            color: var(--secondary);
+            font-size: 24px;
             font-weight: bold;
         }
 
-        .checklist-item {
-            display: flex;
-            align-items: flex-start;
+        .inline-arrow {
+            color: var(--secondary);
+            font-weight: bold;
+            display: inline-block;
+            margin: 0 5px;
+            transform: scale(1.1);
+        }
+
+        /* --- STYLES CHO GIAO DIỆN TƯƠNG TÁC (DETAILS/SUMMARY) --- */
+        details.interactive-qa {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
             margin-bottom: 10px;
+            overflow: hidden;
         }
-        .checklist-item input[type="checkbox"] {
-            margin-top: 5px;
-            margin-right: 10px;
-            transform: scale(1.2);
+
+        details.interactive-qa summary {
+            background: #f1f5f9;
+            padding: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        details.interactive-qa summary::-webkit-details-marker { display: none; }
+        details.interactive-qa summary::after {
+            content: "▼";
+            color: var(--primary);
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+        details.interactive-qa[open] summary::after { transform: rotate(180deg); }
         
-        .hl-yellow { background-color: rgba(255, 235, 59, 0.3); padding: 2px; }
+        .qa-hint {
+            padding: 15px;
+            background: #fff;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.95em;
+        }
+
+        /* --- FOOTER BẢN QUYỀN --- */
+        .footer {
+            margin-top: 50px;
+            padding: 30px;
+            text-align: center;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+        .footer p { margin: 5px 0; }
+        .footer .highlight { color: #ffeb3b; font-weight: bold; }
+        
+        .hl-yellow { background-color: rgba(255, 235, 59, 0.4); padding: 2px 4px; border-radius: 3px;}
     </style>
 </head>
 <body>
 
 <div class="container">
     <!-- 1. HEADER TÀI LIỆU -->
-    <h1>TÀI LIỆU HƯỚNG DẪN THỰC HÀNH MENTOR-GUIDED</h1>
+    <div class="header-section">
+        <div class="uni-title">Trường Kỹ Thuật Phenikaa - Đại Học Phenikaa</div>
+        <div class="uni-title" style="font-size: 0.9em; color: var(--secondary);">Khoa Điện - Điện Tử</div>
+        <h1>TÀI LIỆU HƯỚNG DẪN THỰC HÀNH MENTOR-GUIDED</h1>
+    </div>
+
     <div class="meta-grid">
         <div class="meta-item">
             <strong>Tên bài Lab</strong>
@@ -252,82 +361,82 @@
         </div>
     </div>
 
-    <!-- MỤC LỤC -->
+    <!-- MỤC LỤC TƯƠNG TÁC -->
     <div class="toc">
-        <strong>Mục Lục Nhanh:</strong>
+        <strong>📑 Nội dung bài học (Mục lục nhanh):</strong>
         <ul>
             <li><a href="#tong-quan">2. Tổng quan Lab</a></li>
             <li><a href="#ban-chat">3. Bản chất Học thuật: Giành lại Quyền tự chủ (Local LAN)</a></li>
             <li><a href="#muc-tieu">4. Mục tiêu giảng dạy / học tập</a></li>
             <li><a href="#kien-thuc">5. Kiến thức nền (HTTP, Router, URL Path)</a></li>
             <li><a href="#chuan-bi">6. Chuẩn bị trước giờ Lab</a></li>
-            <li><a href="#phan-tich-ht">7. Phân tích Kiến trúc Hệ thống & Luồng Dữ liệu</a></li>
-            <li><a href="#ket-noi">8. Phân tích Sơ đồ phần cứng</a></li>
-            <li><a href="#tham-so">9. Các tham số Mạng Cần Cá nhân hóa</a></li>
+            <li><a href="#phan-tich-ht">7. Sơ đồ Kiến trúc & Luồng Dữ liệu</a></li>
+            <li><a href="#ket-noi">8. Sơ đồ Đấu nối Phần cứng</a></li>
+            <li><a href="#tham-so">9. Nhận thức đúng về IP và Bảo mật</a></li>
             <li><a href="#quy-trinh">10. Quy trình Thực hành Từng bước</a></li>
-            <li><a href="#hoi-dap">11. ⚠️ BẮT BUỘC: VƯỢT ẢI CÂU HỎI TRƯỚC KHI XEM CODE</a></li>
-            <li><a href="#canh-bao-code">12. CHỐNG HỌC VẸT: Bẫy Copy Code Mù Quáng</a></li>
-            <li><a href="#phan-tich-code">13. Phân tích Mã nguồn Chuẩn học thuật (Fail-safe Code)</a></li>
+            <li><a href="#hoi-dap">11. ⚠️ Trạm Kiểm Tra Kiến Thức (Q&A)</a></li>
+            <li><a href="#canh-bao-code">12. Chống học vẹt & Lỗ hổng Trải nghiệm Web</a></li>
+            <li><a href="#phan-tich-code">13. Phân tích Mã nguồn C++ (Fail-safe Code)</a></li>
             <li><a href="#checklist">14. Checklist Nghiệm thu Mạng & Mạch</a></li>
             <li><a href="#debug">15. Debug và Xử lý sự cố Cấp cao</a></li>
-            <li><a href="#danh-gia">16. Tự đánh giá & Mini Task Mở rộng</a></li>
-            <li><a href="#mentor">17. Ghi chú Mentoring cho Giảng viên</a></li>
+            <li><a href="#danh-gia">16. Tự đánh giá & Mini Task Mở rộng (Cảnh báo Bảo mật)</a></li>
+            <li><a href="#mentor">17. Lời nhắn nhủ từ Mentor trước giờ thực chiến</a></li>
         </ul>
     </div>
 
     <!-- 2. TỔNG QUAN LAB -->
-    <h2 id="tong-quan">2. Tổng quan Lab</h2>
+    <h2 id="tong-quan">🔍 2. Tổng quan Lab</h2>
     <div class="section-card">
         <p><strong>Tên chuẩn hóa:</strong> Triển khai Máy chủ Web nhúng (Embedded HTTP Server), Định tuyến URL (URL Routing) và Điều khiển Thiết bị qua Trình duyệt Mạng Cục bộ (WLAN).</p>
         <p><strong>Chủ đề kỹ thuật chính:</strong> Giao thức HTTP (Request/Response), Khái niệm Local IP, Phân giải Tên miền Đa hướng (mDNS), Kiến trúc Định tuyến URL (Endpoints), và Kỹ thuật nhúng mã nguồn Front-end (HTML/CSS) vào vùng nhớ Flash (PROGMEM) của Vi điều khiển.</p>
         <p><strong>Vị trí trong hệ thống:</strong> <strong>Tầng 6 (Web cục bộ và Tương tác Mạng LAN)</strong>.</p>
         <ul>
-            <li><strong>Sự chuyển dịch Mô hình (Paradigm Shift):</strong> Ở Lab 3 (Blynk), Lab 4 (MQTT) và Lab 5 (Telegram), thiết bị của bạn phụ thuộc hoàn toàn vào Máy chủ Đám mây (Cloud) ở nước ngoài. Nếu đứt cáp quang biển, hệ thống tê liệt. Ở Lab 6 này, ta <strong>giành lại quyền tự chủ tuyệt đối</strong>: Chính bo mạch ESP8266 của bạn sẽ trở thành một Máy chủ Web (Web Server) độc lập. Dù rớt mạng Internet (WAN), hệ thống vẫn hoạt động trơn tru trong mạng nội bộ (LAN) của tòa nhà.</li>
-            <li><strong>Chuẩn bị cho tương lai:</strong> Hiểu tường tận vòng đời của một gói tin HTTP Request (Get/Post) và HTTP Response (Mã 200, 404) ở bài này là nền tảng sống còn để bạn gửi dữ liệu lên hệ quản trị CSDL đám mây (Firebase REST API) ở Lab 7.</li>
+            <li><strong>Sự chuyển dịch Mô hình (Paradigm Shift):</strong> Ở Lab 3 (Blynk), Lab 4 (MQTT) và Lab 5 (Telegram), thiết bị của bạn phụ thuộc hoàn toàn vào Máy chủ Đám mây (Cloud) ở nước ngoài. Ở Lab 6 này, ta <strong>giành lại quyền tự chủ</strong>: Chính bo mạch ESP8266 của bạn sẽ trở thành một Máy chủ Web (Web Server) độc lập. Dù đứt cáp quang biển (mất WAN), hệ thống vẫn hoạt động trơn tru trong mạng nội bộ (LAN) của tòa nhà.</li>
+            <li><strong>Chuẩn bị cho tương lai:</strong> Hiểu tường tận vòng đời của một gói tin HTTP Request (Get/Post) và HTTP Response (Mã 200, 404) ở bài này là nền tảng bắt buộc để bạn giao tiếp với hệ quản trị CSDL đám mây (Firebase REST API) ở Lab 7.</li>
         </ul>
     </div>
 
     <!-- 3. BẢN CHẤT CỦA BÀI LAB -->
-    <h2 id="ban-chat">3. Bản chất Học thuật: Giành lại Quyền tự chủ (Local LAN)</h2>
+    <h2 id="ban-chat">💡 3. Bản chất Học thuật: Giành lại Quyền tự chủ (Local LAN)</h2>
     <div class="note-box callout">
-        <span class="callout-title">ESP8266 Đóng Vai Trò Giống Hệt Máy Chủ Google!</span>
-        <p>Trong Lab này, vi điều khiển nhỏ bé của bạn sẽ vận hành một dịch vụ mạng phức tạp, hoạt động dựa trên giao thức phi trạng thái (Stateless Protocol) HTTP:</p>
+        <span class="callout-title">ESP8266 Đóng Vai Trò Là Một Máy Chủ Web Độc Lập</span>
+        <p>Trong Lab này, vi điều khiển nhỏ bé của bạn sẽ vận hành một dịch vụ mạng hoạt động dựa trên giao thức phi trạng thái (Stateless Protocol) HTTP:</p>
         <ol>
-            <li><strong>Mạng Cục bộ (Local Area Network - LAN):</strong> Khi NodeMCU kết nối vào Router WiFi nhà bạn, Router (thông qua giao thức DHCP) sẽ cấp cho nó một địa chỉ IP nội bộ (Ví dụ: <code>192.168.1.15</code>). Địa chỉ này bị ẩn sau bức tường lửa NAT. Không ai ngoài Internet có thể nhìn thấy nó. Chỉ Laptop/Điện thoại đang <strong>bắt chung cục WiFi đó</strong> mới có quyền gõ cửa giao tiếp.</li>
-            <li><strong>Chu trình HTTP Request (Yêu cầu):</strong> Khi bạn mở Google Chrome trên Laptop, gõ <code>http://192.168.1.15/led_on</code>. Trình duyệt Chrome đóng vai trò là <strong>Client</strong>, nó mở một Socket TCP đến Cổng số 80 của ESP8266 và gửi đi một văn bản gọi là HTTP GET Request.</li>
+            <li><strong>Mạng Cục bộ (Local Area Network - LAN):</strong> Khi NodeMCU kết nối vào Router WiFi nhà bạn, Router (qua giao thức DHCP) sẽ cấp cho nó một địa chỉ IP nội bộ (Ví dụ: <code>192.168.1.15</code>). Địa chỉ này bị ẩn sau bức tường lửa NAT. Không ai từ ngoài Internet có thể nhìn thấy nó. Chỉ Laptop/Điện thoại đang <strong>bắt chung cục WiFi đó</strong> mới có quyền giao tiếp cục bộ.</li>
+            <li><strong>Chu trình HTTP Request (Yêu cầu):</strong> Khi bạn mở Google Chrome trên Laptop, gõ <code>http://192.168.1.15/led_on</code>. Trình duyệt Chrome đóng vai trò là <strong>Client</strong>, nó mở một Socket TCP đến Cổng số 80 của ESP8266 và gửi đi một gói tin HTTP GET Request.</li>
             <li><strong>URL Routing (Định tuyến API):</strong> Mạch ESP8266 nhận được gói tin, nó bóc tách lấy cái đuôi URL là <code>/led_on</code>. Hệ thống sẽ tra từ điển (Router) xem cái đuôi này được chỉ định chạy hàm C++ nào. Nhận diện đúng, nó kích hoạt hàm <code>digitalWrite</code> bật đèn.</li>
-            <li><strong>HTTP Response (Phản hồi):</strong> Xử lý xong phần cứng, ESP8266 BẮT BUỘC phải đóng gói một thông điệp trả về (Status 200 OK) đính kèm nội dung là các thẻ <code>&lt;html&gt;</code>. Chrome nhận được mã HTML này sẽ tự động vẽ (Render) ra giao diện có nút bấm cho bạn nhìn thấy.</li>
+            <li><strong>HTTP Response (Phản hồi):</strong> Xử lý xong phần cứng, ESP8266 BẮT BUỘC phải đóng gói một thông điệp trả về (Status 200 OK) đính kèm nội dung là các thẻ <code>&lt;html&gt;</code>. Chrome nhận được mã HTML này sẽ tự động vẽ (Render) ra giao diện.</li>
         </ol>
     </div>
 
     <!-- 4. MỤC TIÊU GIẢNG DẠY / HỌC TẬP -->
-    <h2 id="muc-tieu">4. Mục tiêu giảng dạy / học tập</h2>
+    <h2 id="muc-tieu">🎯 4. Mục tiêu học tập</h2>
     <div class="section-card">
-        <p>Sau khi hoàn thành Lab 6, sinh viên phải <strong>CHỨNG MINH ĐƯỢC</strong> các năng lực:</p>
+        <p>Sau khi hoàn thành Lab 6, sinh viên cần <strong>CHỨNG MINH ĐƯỢC</strong> các năng lực:</p>
         <ol>
             <li><strong>Phân tích được</strong> vòng đời của một HTTP Request (GET) và HTTP Response theo chuẩn kiến trúc mạng máy tính.</li>
             <li><strong>Thiết kế thuật toán Định tuyến (URL Routing):</strong> Sử dụng thư viện <code>ESP8266WebServer</code> để ánh xạ chuẩn xác các đuôi Endpoints (như <code>/</code>, <code>/led_on</code>, <code>/led_off</code>) tới các hàm Callback C++ tương ứng.</li>
             <li><strong>Ứng dụng công nghệ mDNS (Multicast DNS):</strong> Khắc phục nhược điểm IP động bị thay đổi liên tục bằng cách phân giải tên miền cục bộ (VD: truy cập bằng <code>http://nhathongminh.local</code> thay vì nhớ dãy số IP).</li>
-            <li><strong>Tối ưu hóa bộ nhớ tĩnh:</strong> Trình bày được kỹ thuật sử dụng chuỗi văn bản thô (Raw String Literals) và từ khóa <code>PROGMEM</code> để nhúng (Embed) một Website giao diện hoàn chỉnh (HTML/CSS) vào bộ nhớ Flash (ROM) thay vì ăn mòn RAM.</li>
+            <li><strong>Tối ưu hóa bộ nhớ tĩnh:</strong> Trình bày được kỹ thuật sử dụng từ khóa <code>PROGMEM</code> (kết hợp với macro <code>FPSTR</code>) để nhúng một Website hoàn chỉnh (HTML/CSS) vào bộ nhớ Flash (ROM) thay vì ăn mòn RAM.</li>
             <li><strong>Cấu trúc Điều hướng (Redirect):</strong> Hiểu và sử dụng được mã trạng thái HTTP 303 (See Other) để chuyển hướng trình duyệt, chống hiện tượng người dùng bị kẹt lại ở một URL điều khiển gây lặp lệnh.</li>
         </ol>
     </div>
 
-    <!-- 5. KIẾN THỨC NỀN SINH VIÊN CẦN CÓ -->
-    <h2 id="kien-thuc">5. Kiến thức nền sinh viên cần thấu hiểu</h2>
+    <!-- 5. KIẾN THỨC NỀN -->
+    <h2 id="kien-thuc">📚 5. Kiến thức nền tảng cần nắm vững</h2>
     <div class="section-card">
         <ul>
-            <li><strong>Sự tồi tệ của thư viện cổ đại <code>WiFiServer</code>:</strong> Trong rất nhiều giáo trình cũ, người ta dùng lệnh <code>WiFiClient client = server.available()</code> và bắt sinh viên phải dùng vòng lặp để <em>tự cắt từng chữ cái</em> trong gói tin HTTP để tìm chữ "GET /led". Phương pháp này cực kỳ nguyên thủy, dễ lỗi và dễ làm treo mạch. Ngày nay, chuẩn mực Công nghiệp bắt buộc phải dùng lớp thư viện cấp cao <strong><code>ESP8266WebServer</code></strong>. Nó cung cấp sẵn hàm <code>server.on("/duong-dan", ten_ham)</code> để tự động hóa hoàn toàn việc phân tích cú pháp.</li>
+            <li><strong>Sự tiến hóa của Thư viện (ESP8266WebServer):</strong> Trong rất nhiều giáo trình cũ, người ta dùng thư viện thô sơ <code>WiFiServer</code> và bắt sinh viên phải dùng vòng lặp để <em>tự cắt từng chữ cái</em> tìm chữ "GET /led". Phương pháp này cực kỳ nguyên thủy, dễ lỗi và dễ làm treo mạch. Chuẩn mực hiện nay yêu cầu dùng <strong><code>ESP8266WebServer</code></strong>. Nó cung cấp sẵn hàm <code>server.on("/duong-dan", ten_ham)</code> để tự động hóa hoàn toàn việc phân tích cú pháp (Routing).</li>
             <li><strong>Mã Trạng Thái (HTTP Status Codes):</strong> Là ngôn ngữ giao tiếp giữa Server (Mạch) và Client (Trình duyệt).
                 <br>👉 <code>200 OK</code>: Server báo Request hợp lệ, kèm theo dữ liệu HTML để vẽ web.
-                <br>👉 <code>303 See Other</code>: Server báo đã xử lý lệnh xong, ra lệnh ép Trình duyệt hãy tải lại trang chủ ngay lập tức. Cực kỳ hữu ích để tránh lỗi kẹt URL.
-                <br>👉 <code>404 Not Found</code>: Trả về khi Trình duyệt gõ sai một cái đường dẫn URL rác không tồn tại trong cấu hình Routing.</li>
-            <li><strong>MIME Types (Định dạng Nội dung):</strong> Trong lệnh C++ <code>server.send(200, "text/html", web_content)</code>, cụm từ <code>text/html</code> là thẻ định danh. Nó báo cho Google Chrome biết: <em>"Gói hàng tao gửi là mã Web, mày hãy tự động vẽ nó ra thành giao diện"</em>. Nếu bạn khai báo nhầm thành <code>text/plain</code>, Chrome sẽ chỉ in ra một đống mã code chữ đen nền trắng xấu xí.</li>
+                <br>👉 <code>303 See Other</code>: Server báo đã xử lý lệnh xong, ra lệnh ép Trình duyệt hãy tải lại trang chủ ngay lập tức. Cực kỳ hữu ích để tránh lỗi kẹt URL lệnh.
+                <br>👉 <code>404 Not Found</code>: Trả về khi Trình duyệt gõ sai một cái đường dẫn rác không tồn tại trong cấu hình.</li>
+            <li><strong>MIME Types & Tiếng Việt (Charset):</strong> Trong lệnh <code>server.send(200, "text/html; charset=utf-8", web_content)</code>, cụm từ <code>text/html</code> báo cho Chrome biết đây là mã Web để vẽ giao diện. Đặc biệt, thuộc tính <code>charset=utf-8</code> BẮT BUỘC phải có để trình duyệt không hiển thị lỗi font các ký tự Tiếng Việt có dấu.</li>
         </ul>
     </div>
 
     <!-- 6. CHUẨN BỊ TRƯỚC GIỜ LAB -->
-    <h2 id="chuan-bi">6. Chuẩn bị trước giờ Lab</h2>
+    <h2 id="chuan-bi">🛠 6. Chuẩn bị trước giờ Lab</h2>
     <table>
         <tr>
             <th>Hạng mục</th>
@@ -338,49 +447,44 @@
             <td>Duy trì mạch Breadboard cơ bản: NodeMCU ESP8266, Cảm biến DHT11 (Chân Data cắm D5), và Bóng đèn LED rời cắm nối tiếp điện trở 220Ω (Chân Anode cắm D6).</td>
         </tr>
         <tr>
-            <td><strong>Cảnh báo Hạ tầng Mạng LAN<br><span class="hl-yellow">(TỬ HUYỆT BẮT BỆNH)</span></strong></td>
-            <td><strong>ĐIỀU KIỆN TIÊN QUYẾT:</strong> Máy tính/Điện thoại của bạn và mạch ESP8266 <span class="hl-yellow">BẮT BUỘC PHẢI KẾT NỐI VÀO CÙNG 1 CỤC PHÁT WIFI</span>. <br>
-            <em>Cảnh báo:</em> Hầu hết WiFi của Nhà trường, Ký túc xá, hoặc Quán Cafe đều bật tính năng <strong>AP Client Isolation (Cách ly Client)</strong> để chống Virus lây lan. Nếu dính tính năng này, Mạch và Laptop dù bắt chung 1 tên WiFi nhưng vẫn không thể nhìn thấy nhau (Gõ IP sẽ báo Timeout). <br>
-            <strong>Giải pháp duy nhất: Sinh viên phải dùng Smartphone tự phát Mobile Hotspot (4G) cho cả Laptop và Mạch cùng chui vào.</strong></td>
+            <td><strong>Hạ tầng Mạng LAN<br><span class="hl-yellow">(TỬ HUYỆT)</span></strong></td>
+            <td><strong>ĐIỀU KIỆN TIÊN QUYẾT:</strong> Máy tính/Điện thoại duyệt web và mạch ESP8266 <span class="hl-yellow">BẮT BUỘC PHẢI KẾT NỐI VÀO CÙNG 1 CỤC PHÁT WIFI</span>. <br>
+            <em>Cảnh báo:</em> Hầu hết WiFi của Nhà trường hoặc Quán Cafe đều bật tính năng <strong>AP Client Isolation (Cách ly Client)</strong> để chống Virus. Nếu dính, Mạch và Laptop dù bắt chung WiFi nhưng vẫn bị Tường lửa che mờ (Gõ IP sẽ báo Timeout). <br>
+            <strong>Giải pháp duy nhất: Dùng Smartphone tự phát Mobile Hotspot (4G) cho cả Laptop và Mạch cùng chui vào.</strong></td>
         </tr>
         <tr>
             <td><strong>Thư viện Cốt lõi</strong></td>
-            <td>Bài Lab này sử dụng các thư viện: <code>ESP8266WiFi.h</code>, <code>ESP8266WebServer.h</code>, và <code>ESP8266mDNS.h</code>. <br>Tin vui: Các thư viện này là <strong>Built-in Core (Lõi tích hợp sẵn)</strong> khi bạn cài đặt ESP8266 Boards Manager ở Lab 1. Bạn KHÔNG CẦN và KHÔNG ĐƯỢC tải thêm ở Library Manager để tránh xung đột.</td>
+            <td>Bài Lab này sử dụng: <code>ESP8266WiFi.h</code>, <code>ESP8266WebServer.h</code>, và <code>ESP8266mDNS.h</code>. <br>Tin vui: Các thư viện này là <strong>Built-in Core (Lõi tích hợp sẵn)</strong>. Bạn KHÔNG CẦN và KHÔNG ĐƯỢC tải thêm ở Library Manager để tránh xung đột.</td>
         </tr>
     </table>
 
     <!-- 7. PHÂN TÍCH HỆ THỐNG -->
-    <h2 id="phan-tich-ht">7. Phân tích Kiến trúc Hệ thống & Luồng Dữ liệu</h2>
+    <h2 id="phan-tich-ht">🏗 7. Sơ đồ Kiến trúc & Luồng Dữ liệu</h2>
     <div class="section-card">
         <p><strong>Mô hình Tương tác Mạng LAN (Không cần Internet quốc tế):</strong></p>
-        <pre>
-[Trình Duyệt Web trên PC/ĐT]                       [Máy chủ Web cục bộ ESP8266]
-  (Client: 192.168.43.10)                            (Server: 192.168.43.50, Port 80)
-           |                                                       |
-           | 1. Bạn Click nút "BẬT ĐÈN" trên Web                   |
-           | HTTP GET Request: http://192.168.43.50/led_on  -----> |
-           |                                                       |
-           |                                          (Tra từ điển Route thấy khớp "/led_on")
-           |                                          (Gọi hàm handleLedOn() -> Bật điện áp D6)
-           |                                                       |
-           | <----- 2. HTTP Response: 303 Redirect (Về lại "/") -- |
-           |                                                       |
-           | 3. Chrome tự động ngoan ngoãn tải lại trang chủ       |
-           | HTTP GET Request: http://192.168.43.50/        -----> |
-           |                                                       |
-           |                                          (Đọc DHT11, Lấy HTML, Bơm thông số vào)
-           |                                                       |
-           | <----- 4. HTTP Response: 200 OK (Kèm cục Code HTML) - |
-           |                                                       |
-(Chrome vẽ lại giao diện cập nhật)
-        </pre>
+        
+        <div class="diagram-container">
+            <div class="diagram-box" style="border-color: #2196f3; color: #1565c0;">💻 Chrome (Client) <span>Click nút "BẬT ĐÈN"<br>GET /led_on</span></div>
+            <div class="diagram-arrow" style="color: #2196f3;">➔</div>
+            <div class="diagram-box" style="border-color: #4caf50; color: #2e7d32;">📡 ESP8266 (Server) <span>Router tra từ điển<br>Gọi hàm handleLedOn()</span></div>
+            <div class="diagram-arrow" style="color: #4caf50;">➔</div>
+            <div class="diagram-box" style="border-color: #ff9800; color: #e65100;">💡 Đèn LED (D6) <span>Bật sáng Vật lý</span></div>
+        </div>
+        
+        <div class="diagram-container" style="background: #fff8f0; border-color: #ffcc80;">
+            <div class="diagram-box" style="border-color: #4caf50; color: #2e7d32;">📡 ESP8266 (Server) <span>Đóng gói HTTP Response<br>Mã 303 Redirect</span></div>
+            <div class="diagram-arrow" style="color: #4caf50;">➔</div>
+            <div class="diagram-box" style="border-color: #2196f3; color: #1565c0;">💻 Chrome (Client) <span>Bị ép tải lại trang chủ<br>GET /</span></div>
+            <div class="diagram-arrow" style="color: #2196f3;">➔</div>
+            <div class="diagram-box" style="border-color: #4caf50; color: #2e7d32;">📡 ESP8266 (Server) <span>Trả về HTML + Mã 200<br>Chrome vẽ lại UI</span></div>
+        </div>
     </div>
 
     <!-- 8. SƠ ĐỒ KẾT NỐI -->
-    <h2 id="ket-noi">8. Phân tích Sơ đồ phần cứng</h2>
+    <h2 id="ket-noi">⚡ 8. Sơ đồ Đấu nối Phần cứng</h2>
     <div class="mentor-box callout">
         <span class="callout-title">Kiến trúc Quen thuộc</span>
-        <p>Sơ đồ vật lý không thay đổi so với Lab 2. Bài toán của Lab 6 là thay đổi "Hệ điều hành mạng" chứ không thay đổi linh kiện.</p>
+        <p>Sơ đồ vật lý không thay đổi so với Lab 2. Bài toán của Lab 6 là thay đổi "Hệ điều hành mạng" (Biến MCU thành Máy chủ) chứ không thay đổi linh kiện.</p>
         <ul>
             <li><strong>Cảm biến Môi trường DHT11:</strong> Chân Data nối vào lỗ <strong>D5 (GPIO14)</strong>.</li>
             <li><strong>Cơ cấu Chấp hành LED (Kèm Trở 220Ω):</strong> Nối vào lỗ <strong>D6 (GPIO12)</strong>.</li>
@@ -388,10 +492,11 @@
     </div>
 
     <!-- 9. THAM SỐ CÁ NHÂN HÓA -->
-    <h2 id="tham-so">9. Các tham số Mạng Cần Cá nhân hóa</h2>
-    <div class="danger-box callout">
-        <span class="callout-title">Không có Cloud thì Lấy gì làm Chìa khóa?</span>
-        <p>Ở Lab 6, chúng ta đã ngắt đứt quan hệ với các Server đám mây (Blynk, Telegram). Sẽ không có Auth Token hay Chat ID nào cả. Chìa khóa duy nhất để bạn điều khiển được thiết bị chính là <strong>ĐỊA CHỈ IP</strong> do cục Router cấp phát.</p>
+    <h2 id="tham-so">🔑 9. Nhận thức đúng về IP và Bảo mật</h2>
+    <div class="warning-box callout">
+        <span class="callout-title">⚠️ Cảnh báo: IP KHÔNG PHẢI LÀ CHÌA KHÓA BẢO MẬT!</span>
+        <p>Ở Lab 6 này, chúng ta không dùng Token Đám mây. Để truy cập bảng điều khiển, bạn sẽ gõ một <strong>Địa chỉ IP Cục bộ</strong> (VD: 192.168.1.15). Tuy nhiên, cần phải hiểu rõ về mặt học thuật: IP chỉ là địa chỉ định tuyến, nó hoàn toàn không có tính bảo mật. <br>
+        <span class="inline-arrow">➔</span> <strong>Rủi ro:</strong> Bất kỳ ai (bạn cùng phòng, hàng xóm) đang bắt chung sóng mạng WiFi của bạn đều có thể quét ra cái IP này và tùy ý điều khiển Bật/Tắt đèn của bạn mà không cần nhập Mật khẩu. HTTP Local mặc định là không có đăng nhập!</p>
     </div>
     <table>
         <tr>
@@ -400,83 +505,96 @@
         </tr>
         <tr>
             <td><code>ssid</code> / <code>password</code></td>
-            <td>Nhập chính xác thông tin Trạm phát WiFi (Hotspot). Nhắc lại: <strong>Laptop/Điện thoại duyệt web và Mạch ESP8266 bắt buộc phải cùng chui vào cái WiFi này.</strong></td>
+            <td>Nhập thông tin Trạm phát WiFi (Hotspot). Nhắc lại: <strong>Điện thoại duyệt web và Mạch ESP8266 bắt buộc phải cùng chui vào cái WiFi này.</strong></td>
         </tr>
         <tr>
             <td><code>mdns_name</code></td>
-            <td>Đây là "Tên miền ảo" (Virtual Domain). Ví dụ bạn nhập <code>"sv-tuananh"</code>. Nhờ công nghệ mDNS, bạn không cần quan tâm IP của mạch là 192.168.x.x nữa. Mở trình duyệt Chrome gõ thẳng: <code>http://sv-tuananh.local</code> là web tự hiện ra! (Lưu ý: Viết liền không dấu, không viết hoa).</td>
+            <td>Tên miền ảo (Virtual Domain). Nếu bạn nhập <code>"sv-tuananh"</code>, công nghệ mDNS cho phép bạn gõ thẳng <code>http://sv-tuananh.local</code> lên Chrome để vào web mà không cần nhớ IP số.</td>
         </tr>
     </table>
 
     <!-- 10. QUY TRÌNH THỰC HÀNH TỪNG BƯỚC -->
-    <h2 id="quy-trinh">10. Quy trình Thực hành Từng bước</h2>
+    <h2 id="quy-trinh">🚀 10. Quy trình Thực hành Từng bước</h2>
     <div class="section-card">
         <h3><span class="step-number">1</span> Pha 1: Nạp Bộ Não Máy Chủ & Định Vị Tọa Độ Mạng</h3>
         <p><strong>Mục đích:</strong> Kích hoạt dịch vụ Web Server trên Port 80 và truy xuất địa chỉ IP nội bộ của Mạch.</p>
         <ol>
-            <li>Mở Arduino IDE. Copy toàn bộ Mã nguồn Chuẩn học thuật (Fail-safe Code) ở <strong>Phần 13</strong> dán vào.</li>
-            <li><strong>Thử thách Code:</strong> Kéo lên đầu File, TỰ TAY XÓA các đoạn rào chắn <code>&lt;...&gt;</code> và điền tên WiFi, Pass WiFi, và cái Tên miền mDNS Độc lạ của riêng bạn.</li>
+            <li>Mở Arduino IDE. Copy toàn bộ Mã nguồn Chuẩn học thuật (Phần 13) dán vào.</li>
+            <li><strong>Thử thách Code:</strong> Kéo lên đầu File, TỰ TAY XÓA các đoạn rào chắn <code>&lt;...&gt;</code> và điền tên WiFi, Pass WiFi, và Tên miền mDNS của bạn.</li>
             <li>Cắm cáp, Chọn COM Port và nhấn Upload.</li>
-            <li><strong>QUAN TRỌNG:</strong> Ngay khi Upload xong 100%, Lập tức mở <strong>Serial Monitor</strong> (Baudrate 115200). Đè nút RST (Reset) cứng trên mạch để xem tiến trình khởi động.</li>
-            <li>Quan sát quá trình Boot mạng. Chờ cho đến khi Serial in ra dòng vinh quang: <code>HTTP Server đã sẵn sàng tại IP: 192.168.x.x</code>. Hãy lấy giấy bút <strong>GHI CHÉP LẠI cái dãy số IP đó!</strong>.</li>
+            <li><strong>QUAN TRỌNG:</strong> Ngay khi Upload xong, mở <strong>Serial Monitor</strong> (115200 baud). Đè nút RST trên mạch. Quan sát quá trình Boot mạng.</li>
+            <li>Chờ Serial in ra dòng vinh quang: <code>ĐỊA CHỈ IP LOCAL CỦA BẠN LÀ: 192.168.x.x</code>. <strong>GHI CHÉP LẠI cái IP đó!</strong>.</li>
         </ol>
 
         <h3><span class="step-number">2</span> Pha 2: Thử nghiệm Giao diện Trình Duyệt (Client Testing)</h3>
-        <p><strong>Mục đích:</strong> Đóng vai trò là Client để kiểm tra năng lực Phục vụ Web của Mạch.</p>
+        <p><strong>Mục đích:</strong> Kiểm tra năng lực Phục vụ Web của Mạch ESP8266.</p>
         <ol>
             <li>Rút Smartphone ra (Đảm bảo điện thoại ĐANG KẾT NỐI VÀO CÙNG WIFI VỚI MẠCH).</li>
-            <li>Mở trình duyệt Google Chrome hoặc Safari. Trỏ tay vào thanh địa chỉ URL.</li>
-            <li>Nhập dãy số IP mà bạn vừa ghi chép (VD: <code>192.168.43.50</code>), hoặc gõ cái tên miền ảo mDNS (VD: <code>http://sv-tuananh.local</code>). Nhấn nút <strong>Đi (Go)</strong>.</li>
-            <li>Phép thuật xuất hiện: Cục Chip ESP8266 bằng cái nắp chai của bạn vừa trả về một Giao diện Web Bảng Điều Khiển xịn xò màu sắc bo góc tuyệt đẹp ngay trên màn hình điện thoại!</li>
+            <li>Mở trình duyệt Google Chrome hoặc Safari. Trỏ tay vào thanh URL.</li>
+            <li>Nhập dãy số IP mà bạn vừa ghi chép (VD: <code>192.168.43.50</code>), hoặc gõ tên miền mDNS (VD: <code>http://sv-tuananh.local</code>). Nhấn nút <strong>Go</strong>.</li>
+            <li>Phép thuật: Cục Chip bé nhỏ của bạn vừa trả về một Giao diện Web Bảng Điều Khiển xịn xò ngay trên điện thoại!</li>
         </ol>
 
-        <h3><span class="step-number">3</span> Pha 3: Nghiệm thu Giao thức API Điều khiển</h3>
-        <p><strong>Mục đích:</strong> Chứng minh hệ thống HTTP Route hoạt động chính xác cả chiều Up và Down.</p>
+        <h3><span class="step-number">3</span> Pha 3: Nghiệm thu Giao thức API Cục bộ</h3>
+        <p><strong>Mục đích:</strong> Chứng minh hệ thống HTTP Route hoạt động chính xác.</p>
         <ol>
-            <li><strong>Test API Downlink (Điều khiển):</strong> Trên Web, chạm tay vào nút bấm "BẬT ĐÈN". Quan sát: Trình duyệt chớp tải lại (Redirect), Chữ trạng thái đổi thành "ĐANG SÁNG", và Bóng đèn vật lý trên Breadboard SÁNG RỰC ngay tức thì. Độ trễ Local LAN cực thấp.</li>
-            <li><strong>Test API Uplink (Cảm biến):</strong> Dùng tay hơ nóng bóp chặt cảm biến DHT11. Chờ vài giây. Trên giao diện Web lúc này số liệu vẫn đang đứng im! <strong>Tại sao?</strong> Vì đây là Web tĩnh. Hãy vuốt màn hình điện thoại kéo xuống (hoặc bấm F5 trên PC) để ép Chrome gửi một <em>HTTP GET Request mới</em>. Lúc này, Giao diện Web mới chịu lột xác hiện ra thông số Nhiệt độ cao thực tế!</li>
-            <li><strong>Test 404 Cảnh sát Mạng:</strong> Thử cố tình chọc phá. Lên thanh địa chỉ Chrome, gõ thêm đuôi rác: <code>192.168.x.x/hack_he_thong</code>. Nhấn Go. Trình duyệt sẽ trả về dòng chữ đen thui thô thiển: <em>"Lỗi 404: Không tìm thấy tài nguyên URL này!"</em>. Tính năng bảo mật định tuyến Route hoạt động tốt.</li>
+            <li><strong>Test API Downlink (Điều khiển):</strong> Chạm tay vào nút "BẬT ĐÈN" trên Web. Quan sát: Trình duyệt chớp tải lại (Redirect 303), Chữ đổi thành "ĐANG SÁNG", và Đèn vật lý trên Breadboard SÁNG RỰC tức thì. Độ trễ Local LAN gần như bằng 0.</li>
+            <li><strong>Test API Uplink (Cảm biến):</strong> Áp tay bóp chặt cảm biến DHT11. <strong>Lưu ý:</strong> Đây là Web tĩnh, số liệu sẽ không tự nảy. Hãy vuốt màn hình kéo từ trên xuống (Reload/F5) để ép Chrome gửi một <em>HTTP GET Request mới</em>. Lúc này web mới cập nhật Nhiệt độ cao thực tế!</li>
+            <li><strong>Test 404 Cảnh sát Mạng:</strong> Lên thanh địa chỉ Chrome, gõ thêm đuôi rác: <code>192.168.x.x/hack_he_thong</code>. Nhấn Go. Trình duyệt sẽ trả về dòng chữ thô: <em>"Loi 404: Khong tim thay tai nguyen URL..."</em>. Routing hoạt động hoàn hảo.</li>
         </ol>
     </div>
 
     <!-- 11. HỎI ĐÁP TRƯỚC CODE -->
-    <h2 id="hoi-dap">11. ⚠️ BẮT BUỘC: VƯỢT ẢI CÂU HỎI TRƯỚC KHI XEM CODE</h2>
+    <h2 id="hoi-dap">⚠️ 11. Trạm Kiểm Tra Kiến Thức (Interactive Q&A)</h2>
     <div class="student-box callout">
         <span class="callout-title">Bảo vệ Tư duy Mạng Cục Bộ trước Mentor:</span>
-        <p>Sinh viên phải trả lời lưu loát 6 câu hỏi này trước khi được phép mở khóa mã nguồn HTML/C++:</p>
-        <ol>
-            <li>Giả sử một kịch bản thảm họa: Cá mập cắn đứt cáp quang biển, mạng Internet toàn quốc bị sập, nhưng cục Router WiFi trong nhà vẫn cắm điện và hoạt động bình thường. Hệ thống App Blynk (Lab 3) có bật được đèn không? Hệ thống Web Local (Lab 6) này có bật được đèn không? Phân tích tại sao?</li>
-            <li>Mã lệnh khởi tạo là <code>ESP8266WebServer server(80);</code>. Tại sao lại dùng con số <code>80</code> mà không phải 1883 (như MQTT) hay 8080? Trình duyệt Chrome của bạn làm sao biết để tự chui vào cái Cổng 80 này mà không cần gõ vào URL?</li>
-            <li>Dòng code <code>server.on("/led_on", handleLedOn);</code> thực thi cơ chế định tuyến (Routing). Hãy giải thích bằng lời sự liên quan móc xích giữa hành động "Bấm cái Nút màu xanh trên Web" và "Lệnh phần cứng bật điện áp xuất ra chân D6".</li>
-            <li>Con chip ESP8266 chỉ là một mảnh Silicon yếu ớt, hoàn toàn không có Card đồ họa (VGA) hay bộ nhớ ổ cứng khổng lồ. Vậy từ đâu chui ra những đoạn mã màu sắc, bo góc CSS tuyệt đẹp hiển thị trên điện thoại của bạn? Ai là người vẽ ra nó?</li>
-            <li>Sau khi cắm điện cho mạch chạy, bạn rút điện thoại xài Mạng Viettel 4G ra gõ IP <code>192.168.1.15</code> vào Chrome thì nó báo lỗi Timeout xoay mòng mòng. Tại sao lại như vậy? (Gợi ý: Tìm hiểu khái niệm IP Public ngoài Internet và IP Private cục bộ).</li>
-            <li>Nếu Kỹ sư thiết kế vô tình xóa mất cái hàm <code>server.handleClient();</code> nằm bên trong vòng lặp <code>loop()</code>, chuyện thảm họa gì sẽ xảy ra khi bạn gõ IP lên trình duyệt?</li>
-        </ol>
+        <p>Sinh viên phải trả lời lưu loát các câu hỏi này trước khi được phép copy mã nguồn:</p>
+        
+        <details class="interactive-qa">
+            <summary>1. Nếu đứt cáp quang biển (mất mạng Internet toàn cầu), Web Server của bạn có bật được đèn không?</summary>
+            <div class="qa-hint"><strong>💡 Gợi ý tư duy:</strong> VẪN BẬT ĐƯỢC BÌNH THƯỜNG! Hệ thống này chỉ cần WiFi Router cục bộ làm trạm thu phát sóng nội bộ (LAN). Nó không cần ping ra ngoài thế giới. Khác biệt hoàn toàn với Blynk/Telegram (sẽ bị tê liệt nếu đứt mạng quốc tế).</div>
+        </details>
+
+        <details class="interactive-qa">
+            <summary>2. Mã lệnh khởi tạo là <code>ESP8266WebServer server(80);</code>. Tại sao lại dùng Cổng số 80?</summary>
+            <div class="qa-hint"><strong>💡 Gợi ý tư duy:</strong> Cổng 80 là cổng tiêu chuẩn quốc tế của giao thức duyệt web HTTP (Không mã hóa). Nhờ đó, trình duyệt Chrome của bạn tự động biết cách ngầm chui vào cổng này mà bạn không cần phải gõ URL rườm rà như <code>http://192.168.1.15:80</code>.</div>
+        </details>
+
+        <details class="interactive-qa">
+            <summary>3. Dòng code <code>server.on("/led_on", handleLedOn);</code> (Routing) có ý nghĩa gì?</summary>
+            <div class="qa-hint"><strong>💡 Gợi ý tư duy:</strong> Nó là một "Từ điển định tuyến". Nếu nó phát hiện Trình duyệt Chrome gửi một gói tin đòi truy cập vào cái đuôi URL <code>/led_on</code>, nó sẽ tự động kích hoạt Cò súng để gọi hàm C++ có tên <code>handleLedOn()</code> ra phục vụ xử lý bật đèn.</div>
+        </details>
+
+        <details class="interactive-qa">
+            <summary>4. Tại sao lại cảnh báo việc mở Web Local là cực kỳ rủi ro về mặt Bảo mật nếu dùng ở quán Cafe?</summary>
+            <div class="qa-hint"><strong>💡 Gợi ý tư duy:</strong> Vì Local HTTP mặc định KHÔNG CÓ ĐĂNG NHẬP (No Auth). Bất kỳ thiết bị rác nào bắt chung mạng WiFi của quán Cafe đều có thể dùng tool quét dải IP, tìm ra IP của mạch bạn và thoải mái chọc lệnh `/led_on` để phá hoại thiết bị của bạn.</div>
+        </details>
     </div>
 
     <!-- 12. CẢNH BÁO CODE MÙ QUÁNG -->
-    <h2 id="canh-bao-code">12. CHỐNG HỌC VẸT: Bẫy Copy Code Mù Quáng</h2>
+    <h2 id="canh-bao-code">🛑 12. Chống Học Vẹt & Lỗ hổng Trải nghiệm Web</h2>
     <div class="danger-box callout">
-        <span class="callout-title">5 Dấu hiệu "Bệnh lý" Tố Cáo Sinh viên chỉ biết bấm Copy-Paste ở Lab 6:</span>
-        <ol>
-            <li>Gõ IP lên trình duyệt, mạch chạy báo lỗi Loading xoay mòng mòng không ra web. Sinh viên gào lên "Code Web của Thầy lỗi rồi". <em>Căn bệnh:</em> Thiếu kiến thức mạng cơ bản. Điện thoại đang xài 4G hoặc bắt nhầm sóng Wifi phòng bên cạnh, làm sao đòi chọc vào IP Local của mạng phòng này được!</li>
-            <li>Mạch Boot lên Serial Monitor phun ra dòng <code>IP: 0.0.0.0</code>. <em>Căn bệnh:</em> Copy code nhưng lười đọc, quên xóa mấy cái rào chắn <code>&lt;NHẬP_WIFI_CỦA_BẠN&gt;</code>, mạch không nối được mạng nên Router không cấp IP.</li>
-            <li>Code báo lỗi Compile đỏ rực ở mấy cái dòng in HTML. <em>Căn bệnh:</em> Lên mạng chép mấy cái code cổ đại dùng <code>client.println("&lt;h1 class=\"button\"&gt;");</code>. Không kiểm soát được cái ma trận dấu ngoặc kép thoát chéo (Escape Character Hell <code>\"</code>) nên văng lỗi Cú pháp C++. <em>(Hãy đọc Phần 13 để xem kỹ thuật Raw String Literal giải cứu vấn đề này)</em>.</li>
-            <li>Nhiệt độ trên Web cứ đứng im 30 độ mãi dù đã áp tay nóng hổi vào mạch. Sinh viên kết luận: <em>"Cảm biến bị đơ!"</em>. <em>Căn bệnh:</em> Quên mất bản chất Giao thức HTTP là phi trạng thái tĩnh (Stateless). Server không bao giờ tự động ném Data về nếu Client (Trình duyệt) không chủ động gõ cửa bấm F5 xin thêm (Refresh).</li>
-            <li>Bấm nút bật đèn trên Web, đèn sáng. Nhưng lỡ tay quẹt vuốt màn hình tải lại trang, <strong>cái đèn tự nhiên lại bị gạch bật sáng/tắt lại một lần nữa ngoài ý muốn</strong>. <em>Căn bệnh:</em> Sao chép code thiếu kiến trúc Điều hướng. Trình duyệt bị kẹt lại ở cái đường dẫn <code>/led_on</code>. Cứ mỗi lần tải trang là nó lại tự động gửi lại lệnh chọc bật đèn. <em>(Đọc kỹ thuật dùng HTTP 303 Redirect ở phần Mã nguồn chuẩn).</em></li>
-        </ol>
+        <span class="callout-title">5 Dấu hiệu Tố Cáo Sinh viên chỉ biết bấm Copy-Paste ở Lab 6:</span>
+        <ul style="margin-top: 10px;">
+            <li>Gõ IP lên trình duyệt, mạch chạy báo lỗi Loading xoay mòng mòng không ra web. Sinh viên gào lên "Code của Thầy lỗi rồi". <em>Căn bệnh:</em> Điện thoại đang xài 4G hoặc bắt nhầm Wifi phòng bên cạnh, làm sao đòi chọc vào IP Local của mạng phòng này được!</li>
+            <li>Code báo lỗi Compile đỏ rực ở dòng in HTML. <em>Căn bệnh:</em> Lên mạng chép code cổ đại dùng <code>client.println("&lt;h1 class=\"btn\"&gt;");</code>. Bị kẹt trong ma trận dấu nháy kép (Escape Character Hell <code>\"</code>). <em>Hãy xem kỹ thuật Raw String Literal giải cứu ở Phần 13</em>.</li>
+            <li>Nhiệt độ trên Web cứ đứng im 30 độ mãi dù đã áp tay nóng hổi vào mạch. Sinh viên kết luận "Cảm biến đơ!". <em>Căn bệnh:</em> Quên mất bản chất HTTP là giao thức tĩnh (Stateless). Server không tự ném Data về nếu Client không chủ động F5 xin thêm (Refresh).</li>
+            <li>Bấm nút bật đèn, đèn sáng. Lỡ tay vuốt màn hình tải lại trang, <strong>cái đèn tự nhiên lại bị tắt đi bật lại 1 lần nữa ngoài ý muốn</strong>. <em>Căn bệnh:</em> Sao chép code thiếu kiến trúc Điều hướng. Trình duyệt bị kẹt lại ở cái đường dẫn <code>/led_on</code>, mỗi lần F5 là nó lại gửi lại lệnh chọc đèn. <em>(Đọc kỹ thuật HTTP 303 Redirect ở mã chuẩn).</em></li>
+        </ul>
     </div>
     
     <div class="warning-box callout">
-        <span class="callout-title">"Sự Lạc Hậu Của Mã Nguồn Trôi Nổi Trên Mạng:"</span>
-        <p>- Rất nhiều tài liệu cũ (Thậm chí cả sách PDF đời trước) dạy bạn dựng Web Server bằng cách dùng lớp thư viện thô sơ <code>WiFiServer client</code>. Nó bắt Kỹ sư phải dùng hàm <code>request.indexOf("GET /on")</code> để chặt chém phân tích từng đoạn String cắt chuỗi thủ công. Đây là một <strong>Hành vi Lập trình Phản Năng Suất (Anti-pattern)</strong>. Nó cực kỳ tốn tài nguyên, dễ sinh lỗi tràn RAM và cấu trúc code lộn xộn tơ vò không thể nâng cấp. Bản HTML chuẩn hóa Lab 6 này đã đại phẫu, nâng cấp toàn bộ hệ thống lên thư viện <code>ESP8266WebServer</code> với các API <code>server.on()</code> định tuyến cực kỳ mạnh mẽ, sạch sẽ như đang lập trình Node.js!</p>
+        <span class="callout-title">Cảnh báo Học thuật: Tối ưu Lấy mẫu Cảm biến (Rate Limiting)</span>
+        <p>- Rất nhiều giáo trình cho phép gọi hàm <code>dht.readTemperature()</code> nằm trực tiếp bên trong nội hàm <code>handleRoot()</code> (hàm phục vụ vẽ giao diện Web).<br>
+        <span class="inline-arrow">➔</span> <strong>Hậu quả tàn khốc:</strong> Nếu một người dùng "trẻ trâu" liên tục bấm Refresh (F5) trang web 5 lần trong 1 giây, cảm biến DHT11 sẽ bị ép đọc 5 lần liên tiếp. Vi mạch bên trong DHT11 sẽ bị treo cứng (vì nó chỉ cho phép đọc tối đa 1 lần/2 giây) và trả về lỗi NaN.<br>
+        <span class="inline-arrow">➔</span> <strong>Giải pháp Kỹ sư:</strong> Đọc mã nguồn chuẩn bên dưới. Hàm đọc DHT11 đã được tách riêng xuống vòng lặp <code>loop()</code>, bị khóa giới hạn bằng <code>millis()</code> định kỳ 2 giây. Hàm <code>handleRoot()</code> chỉ việc bốc cái số liệu đã được lưu sẵn trong biến toàn cục đem đi vẽ Web cực kỳ tốc độ!</p>
     </div>
 
     <!-- 13. PHÂN TÍCH CODE -->
-    <h2 id="phan-tich-code">13. Phân tích Mã nguồn Chuẩn học thuật (Mã Nguồn Bẫy Fail-safe)</h2>
+    <h2 id="phan-tich-code">💻 13. Phân tích Mã nguồn C++ (Mã Nguồn Fail-safe)</h2>
     <div class="section-card">
-        <p>Mã nguồn dưới đây là một "Tác phẩm Nghệ thuật" về kiến trúc Tách biệt Lớp: Tầng Giao diện View (Mã HTML/CSS) được gói gọn gàng cô lập hoàn toàn với Tầng Điều khiển Controller (C++ Handlers).<br>
-        <span class="placeholder">CẢNH BÁO BẪY COPY CỦA MENTOR: Trong Khối 1, bạn BUỘC phải Tự Tay xóa bỏ các cặp ngoặc nhọn <code>&lt;...&gt;</code> và Điền Thông tin WiFi cá nhân của bạn vào để Trình biên dịch C++ chịu làm việc (Không báo Syntax Error)!</span></p>
+        <p>Mã nguồn dưới đây là một "Tác phẩm Nghệ thuật" về kiến trúc Tách biệt Lớp: Tầng Giao diện View (HTML) được cô lập hoàn toàn với Tầng Điều khiển Controller (C++). Nó cũng tích hợp sẵn bộ đệm cảm biến Non-blocking (Rate limiting) bảo vệ phần cứng.<br>
+        <span class="placeholder">CẢNH BÁO BẪY COPY CỦA MENTOR: Khối 1 chứa tham số `<...>`. Bạn BUỘC phải Tự Tay xóa bỏ và Điền Thông tin WiFi cá nhân của bạn vào để Trình biên dịch C++ chịu làm việc (Không báo Syntax Error)!</span></p>
         
         <pre><code>#include &lt;ESP8266WiFi.h&gt;
 #include &lt;ESP8266WebServer.h&gt; // Thư viện Web Server cấp cao chuẩn công nghiệp
@@ -499,13 +617,17 @@ DHT dht(DHTPIN, DHTTYPE);
 // Khởi tạo Lễ Tân Server túc trực tại Cổng 80 (Cổng HTTP lướt web tiêu chuẩn quốc tế)
 ESP8266WebServer server(80);
 
-String ledStateStr = "ĐANG TẮT"; // Biến lưu trạng thái Chữ để in lên Web
+// Biến Toàn cục Lưu trữ trạng thái (Đóng vai trò như Database RAM nhỏ)
+String ledStateStr = "ĐANG TẮT"; 
+float currentTemp = 0.0;
+float currentHum = 0.0;
+unsigned long lastDHTRead = 0; // Biến đếm giờ cho Cảm biến
 
 /* ======================================================================
    KHỐI 2: ĐÓNG GÓI GIAO DIỆN FRONT-END (HTML/CSS)
    Bí kíp: Kỹ thuật Raw String Literal R"=====(...)====="
-   Từ khóa PROGMEM ép mảng dữ liệu văn bản siêu lớn này lưu thẳng vào bộ nhớ Flash (ROM)
-   thay vì ngốn hết RAM, giúp mạch không bị sập Crash văng lỗi OOM.
+   Từ khóa PROGMEM ép mảng dữ liệu HTML này lưu thẳng vào bộ nhớ Flash (ROM)
+   giúp mạch không bị sập Crash văng lỗi OOM (Tràn RAM).
    ====================================================================== */
 const char MAIN_page[] PROGMEM = R"=====(
 &lt;!DOCTYPE html&gt;
@@ -533,7 +655,7 @@ const char MAIN_page[] PROGMEM = R"=====(
     &lt;h2 style="margin-top:0;"&gt;⚡ Đèn Chiếu Sáng (D6)&lt;/h2&gt;
     &lt;p&gt;Trạng thái vật lý: &lt;strong style="color:#2980b9;"&gt;%LED_STATE_MARKER%&lt;/strong&gt;&lt;/p&gt;
     
-    &lt;!-- Các thẻ a này chính là Cò súng để bắn HTTP GET Request về Server --&gt;
+    &lt;!-- Các thẻ a này chính là Cò súng bắn HTTP GET Request về Server --&gt;
     &lt;a href="/led_on" class="btn btn-on"&gt;BẬT ĐÈN&lt;/a&gt;
     &lt;a href="/led_off" class="btn btn-off"&gt;TẮT ĐÈN&lt;/a&gt;
   &lt;/div&gt;
@@ -555,25 +677,22 @@ const char MAIN_page[] PROGMEM = R"=====(
    Mỗi hàm tương ứng với 1 đường dẫn URL mà Trình duyệt gửi tới
    ====================================================================== */
 
-// 1. Hàm Cấu trúc Trang chủ (Route gốc "/"): Lấy Data, Vẽ View
+// 1. Hàm Cấu trúc Trang chủ (Route gốc "/"): Lấy Data, Vẽ View HTML
 void handleRoot() {
-  float t = dht.readTemperature();
-  float h = dht.readHumidity();
-
   // Ép kiểu Float thành String. Bẫy lỗi phần cứng nếu sensor chết
-  String tempStr = isnan(t) ? "Lỗi Đọc" : String(t, 1);
-  String humStr = isnan(h) ? "Lỗi Đọc" : String(h, 1);
+  String tempStr = isnan(currentTemp) ? "Lỗi Đọc" : String(currentTemp, 1);
+  String humStr = isnan(currentHum) ? "Lỗi Đọc" : String(currentHum, 1);
 
-  // Múc toàn bộ khối HTML trong bộ nhớ Flash rớt ra một biến String tạm thời
-  String html = MAIN_page;
+  // Múc khối HTML từ bộ nhớ Flash ra Ram bằng lệnh FPSTR chuẩn hóa
+  String html = FPSTR(MAIN_page);
   
-  // VIEW TEMPLATE ENGINE MINIMAL: Tìm và Thay thế các Biến đánh dấu (%) bằng Dữ liệu thực tế
+  // VIEW TEMPLATE ENGINE: Tìm và Thay thế các Biến đánh dấu (%) bằng Dữ liệu thực tế
   html.replace("%TEMP_MARKER%", tempStr);
   html.replace("%HUM_MARKER%", humStr);
   html.replace("%LED_STATE_MARKER%", ledStateStr);
 
-  // GÓI HÀNG TRẢ VỀ: Bắn mã phản hồi HTTP 200 OK + Gắn nhãn MIME Type text/html + Đẩy cục HTML xuống Trình duyệt
-  server.send(200, "text/html", html);
+  // GÓI HÀNG TRẢ VỀ: Bắn mã phản hồi HTTP 200 OK + Gắn nhãn MIME Type text/html + UTF-8 để chống lỗi tiếng Việt
+  server.send(200, "text/html; charset=utf-8", html);
 }
 
 // 2. Endpoint: Kích hoạt Lệnh Bật Đèn (Route "/led_on")
@@ -599,8 +718,8 @@ void handleLedOff() {
 
 // 4. Cảnh sát Bẫy Lỗi HTTP 404 (Khi gõ bậy đường dẫn rác)
 void handleNotFound() {
-  // Trả về MIME Type text/plain (Chỉ là đoạn Text thô, không phải trang Web)
-  server.send(404, "text/plain", "Loi 404: Khong tim thay tai nguyen URL nay tren May chu ESP8266!");
+  // Trả về MIME Type text/plain (Chỉ là Text thô ráp, không phải trang Web)
+  server.send(404, "text/plain; charset=utf-8", "Lỗi 404: Không tìm thấy tài nguyên URL này trên Máy chủ ESP8266!");
 }
 
 /* ======================================================================
@@ -616,22 +735,22 @@ void setup() {
   // KẾT NỐI VÀO MẠNG LAN CỤC BỘ
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
-  Serial.print("\n>> Đang xin cấp Visa vào mạng WiFi");
+  Serial.print("\n&gt;&gt; Đang xin cấp Visa vào mạng WiFi");
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-  Serial.println("\n>> WiFi Connected.");
-  Serial.print(">> ĐỊA CHỈ IP LOCAL CỦA BẠN LÀ: ");
+  Serial.println("\n&gt;&gt; WiFi Connected.");
+  Serial.print("&gt;&gt; ĐỊA CHỈ IP LOCAL CỦA BẠN LÀ: ");
   Serial.println(WiFi.localIP());
 
-  // KÍCH HOẠT DỊCH VỤ TÊN MIỀN ẢO mDNS (Trải nghiệm Web mượt mà, không cần học thuộc IP)
+  // KÍCH HOẠT DỊCH VỤ TÊN MIỀN ẢO mDNS (Trải nghiệm Web mượt mà, không cần IP)
   if (MDNS.begin(mdns_name)) {
-    Serial.printf(">> Tên miền mDNS đã sẵn sàng tại: http://%s.local\n", mdns_name);
+    Serial.printf("&gt;&gt; Tên miền mDNS đã sẵn sàng tại: http://%s.local\n", mdns_name);
   }
 
   // KHAI BÁO BẢN ĐỒ ĐỊNH TUYẾN URL (ROUTING API REGISTRY)
-  // Gắn Luật: Nếu Trình duyệt gõ Route X -> Phân công gọi Hàm C++ Y ra tiếp khách
+  // Gắn Luật: Nếu Trình duyệt gõ Route X -&gt; Phân công gọi Hàm C++ Y ra tiếp khách
   server.on("/", handleRoot);          
   server.on("/led_on", handleLedOn);   
   server.on("/led_off", handleLedOff); 
@@ -639,7 +758,7 @@ void setup() {
 
   // Bật Cầu dao Nguồn của Web Server
   server.begin();
-  Serial.println(">> HTTP Server đang Lắng nghe túc trực tại Cổng Port 80...");
+  Serial.println("&gt;&gt; HTTP Server đang Lắng nghe túc trực tại Cổng Port 80...");
 }
 
 /* ======================================================================
@@ -648,105 +767,108 @@ void setup() {
 void loop() {
   MDNS.update(); // Bơm nhịp tim duy trì sóng phát thanh tên miền mDNS
   
-  // LỆNH TỐI QUAN TRỌNG NHẤT CỦA BÀI LAB: 
-  // Rình rập, Lắng nghe và Vớt các Gói tin Request từ Trình duyệt ném tới liên tục
+  // Rình rập, Lắng nghe và Vớt các Gói tin Request từ Trình duyệt ném tới
   server.handleClient();
+
+  // THUẬT TOÁN ĐỌC CẢM BIẾN NON-BLOCKING CÁCH LY
+  // Tách biệt việc đọc DHT11 khỏi Hàm Load Web. 
+  // Chỉ đọc cập nhật biến toàn cục 2 giây/lần. Tránh việc user Spam F5 làm chết cảm biến.
+  if (millis() - lastDHTRead &gt; 2000) {
+    currentTemp = dht.readTemperature();
+    currentHum = dht.readHumidity();
+    lastDHTRead = millis();
+  }
 }</code></pre>
     </div>
 
     <!-- 14. CHECKLIST -->
-    <h2 id="checklist">14. Checklist Nghiệm thu Mạng & Mạch (Acceptance Test)</h2>
+    <h2 id="checklist">✅ 14. Checklist Nghiệm thu Mạng & Mạch (Acceptance Test)</h2>
     <div class="section-card">
         <h3>A. Checklist Đảm bảo Môi trường Mạng & Biên dịch</h3>
-        <div class="checklist-item"><input type="checkbox"> 1. Điện thoại/Laptop duyệt Web đã KIỂM TRA CHÉO chắc chắn 100% đang BẮT CÙNG MỘT SÓNG WIFI với mạch ESP8266 chưa? (Nếu đang bật 4G trên điện thoại, đánh sập trình duyệt ngay lập tức).</div>
+        <div class="checklist-item"><input type="checkbox"> 1. Điện thoại/Laptop duyệt Web đã KIỂM TRA CHÉO chắc chắn 100% đang BẮT CÙNG MỘT SÓNG WIFI với mạch ESP8266 chưa? (Nếu điện thoại đang bật 4G riêng, đánh sập trình duyệt ngay lập tức).</div>
         <div class="checklist-item"><input type="checkbox"> 2. Đã tự xóa các bẫy lỗi <code>&lt;...&gt;</code> và gõ chuẩn xác cấu hình WiFi cùng tên mDNS cá nhân hóa vào đỉnh file C++ chưa?</div>
         <div class="checklist-item"><input type="checkbox"> 3. <strong>Kiểm định Boot Sequence:</strong> Bảng Serial Monitor (115200) in ra lộ trình trơn tru và chốt hạ vinh quang bằng tọa độ: <code>ĐỊA CHỈ IP LOCAL CỦA BẠN LÀ: 192.168.x.x</code></div>
 
-        <h3>B. Checklist Nghiệm thu Vận hành Không gian Mạng (Web Output)</h3>
-        <div class="checklist-item"><input type="checkbox"> 1. <strong>Test Tải Giao diện (Render):</strong> Mở Chrome trên điện thoại, gõ chính xác cái IP đó hoặc gõ <code>http://[tên_mDNS].local</code>. Giao diện Website nảy lên mượt mà chứa 2 thẻ Card bo góc tròn và tông màu chuẩn UI/UX.</div>
-        <div class="checklist-item"><input type="checkbox"> 2. <strong>Test Điều khiển Actuator (Đánh chặn Redirect):</strong> Bấm nút <strong>BẬT ĐÈN</strong>. Trình duyệt chớp nhẹ một cái (Hiện tượng Redirect 303 cực chuẩn xác), dòng chữ báo đổi thành "ĐANG SÁNG", và bóng đèn trên Breadboard vật lý SÁNG RỰC ngay tức thì không hề có độ trễ qua Mây.</div>
-        <div class="checklist-item"><input type="checkbox"> 3. <strong>Test Kéo Viễn trắc (Pull Telemetry):</strong> Dùng bàn tay áp chặt vào Cảm biến DHT11. Thấy số trên Web chưa đổi? Không sao! Lấy ngón tay vuốt kéo màn hình Chrome từ trên xuống (Reload/F5). Trình duyệt bắn Request GET mới, Khung giao diện lập tức render lại và tạc ra con số 32, 33°C.</div>
-        <div class="checklist-item"><input type="checkbox"> 4. <strong>Test Đánh chặn Cảnh sát Mạng 404:</strong> Chơi khăm bằng cách gõ thêm chữ bậy bạ vào thanh URL (Ví dụ: <code>http://IP_cua_ban/giau_quy_den</code>). Web Server C++ dõng dạc phản đòn vả lại dòng chữ thô: <em>"Loi 404: Khong tim thay tai nguyen URL..."</em>.</div>
+        <h3 style="margin-top: 20px;">B. Checklist Nghiệm thu Vận hành Không gian Mạng (Web Output)</h3>
+        <div class="checklist-item"><input type="checkbox"> 1. <strong>Test Tải Giao diện (Render):</strong> Mở Chrome trên điện thoại, gõ IP số đó hoặc gõ <code>http://[tên_mDNS].local</code>. Giao diện Website nảy lên mượt mà chứa 2 thẻ Card bo góc tròn, không bị lỗi font Tiếng Việt.</div>
+        <div class="checklist-item"><input type="checkbox"> 2. <strong>Test Điều khiển Actuator (Đánh chặn Redirect):</strong> Bấm nút <strong>BẬT ĐÈN</strong>. Trình duyệt chớp nhẹ một cái (Hiện tượng Redirect 303 cực chuẩn), chữ đổi thành "ĐANG SÁNG", và bóng đèn trên Breadboard SÁNG RỰC ngay tức thì.</div>
+        <div class="checklist-item"><input type="checkbox"> 3. <strong>Test Kéo Viễn trắc (Pull Telemetry):</strong> Dùng bàn tay áp chặt DHT11. Lấy ngón tay vuốt kéo màn hình Chrome từ trên xuống (Reload/F5) để ép Chrome gửi một <em>HTTP GET Request mới</em>. Web lột xác hiện ra thông số 32, 33°C.</div>
+        <div class="checklist-item"><input type="checkbox"> 4. <strong>Test Đánh chặn Cảnh sát Mạng 404:</strong> Cố tình gõ thêm đuôi rác: <code>192.168.x.x/hack_he_thong</code>. Web Server C++ vả lại dòng chữ: <em>"Lỗi 404: Không tìm thấy tài nguyên..."</em>. Định tuyến hoạt động hoàn hảo.</div>
     </div>
 
     <!-- 15. DEBUG -->
-    <h2 id="debug">15. Debug và Xử lý sự cố Giao thức HTTP Cấp cao</h2>
-    <table class="debug-table">
+    <h2 id="debug">🛠 15. Debug và Xử lý sự cố Giao thức HTTP Cấp cao</h2>
+    <table>
         <tr>
-            <th>Hiện tượng Cố Hữu Trình duyệt Báo Lỗi</th>
+            <th>Hiện tượng Trình duyệt Báo Lỗi</th>
             <th>Căn nguyên Kỹ thuật Lõi (Root Cause)</th>
-            <th>Hành động Can thiệp Chữa cháy (Troubleshooting)</th>
+            <th>Hành động Chữa cháy (Troubleshooting)</th>
         </tr>
         <tr>
-            <td>Trình duyệt Chrome xoay mòng mòng (Loading) mỏi mòn rồi văng lỗi xám xịt <strong>This site can’t be reached (ERR_CONNECTION_TIMED_OUT)</strong>.</td>
-            <td>Lỗi Phân Rã Định Tuyến Mạng (Routing Islation). Kịch bản 1: Mạch và Điện thoại không nằm chung 1 dải IP mạng. Kịch bản 2: Bạn xài Wifi hội trường, cục Router đã kích hoạt Tường lửa AP Client Isolation (Chặn các thiết bị ngang hàng ping nhìn thấy nhau để chống Virus).</td>
-            <td>Ngắt toàn bộ mạng ngoài. <strong>Giải pháp Tối thượng: Lấy điện thoại cá nhân tự phát Hotspot 4G/5G.</strong> Ép cả cái Laptop và bo mạch NodeMCU cùng chui vào bắt sóng điểm Hotspot đó để tạo thành 1 cụm LAN nội bộ khép kín tuyệt đối.</td>
+            <td>Trình duyệt Chrome xoay mòng mòng mỏi mòn rồi văng lỗi xám xịt <strong>This site can’t be reached (ERR_CONNECTION_TIMED_OUT)</strong>.</td>
+            <td>Lỗi Phân Rã Định Tuyến Mạng (Routing Isolation). Mạch và Điện thoại không nằm chung 1 dải IP mạng. Hoặc Router WiFi Giảng đường/Quán Cafe đã kích hoạt Tường lửa "AP Client Isolation" chặn các thiết bị LAN nhìn thấy nhau.</td>
+            <td>Ngắt mạng ngoài. <strong>Giải pháp Tối thượng: Lấy điện thoại cá nhân tự phát Hotspot 4G/5G.</strong> Ép cả cái Laptop và bo mạch NodeMCU cùng chui vào bắt sóng điểm Hotspot đó để tạo thành 1 mạng LAN khép kín.</td>
         </tr>
         <tr>
-            <td>Giao diện tải lên nhanh, nhưng Trang Web trông như một bãi rác lộn xộn (Mã lệnh C++, các thẻ <code>&lt;html&gt;</code> trần trụi hiện phơi bày), không hề có bảng màu hay nút bấm bo góc CSS nào cả.</td>
-            <td>Lỗi Bắt sai Định dạng Gói (MIME Type Mismatch). Trình duyệt Chrome không biết cục Data nó vừa nhận là trang web hay là cuốn tiểu thuyết. Nguyên nhân do hàm C++ khai báo trả về Header sai chuẩn.</td>
-            <td>Quay lại ngó Hàm <code>handleRoot()</code> trong C++. Tìm dò dòng lệnh <code>server.send(200, "text/html", html);</code>. Đảm bảo chắc chắn 100% cái tham số thứ 2 viết đúng chính tả là <code>"text/html"</code> (Chứ không phải "text/plain").</td>
+            <td>Trang Web trông như một bãi rác lộn xộn (các thẻ <code>&lt;html&gt;</code> trần trụi hiện phơi bày), không hề có bảng màu hay nút bấm bo góc CSS.</td>
+            <td>Lỗi Bắt sai Định dạng Gói (MIME Type Mismatch). Chrome không biết Data vừa nhận là web hay là văn bản Text thô. Do hàm C++ khai báo trả về Header sai chuẩn.</td>
+            <td>Kiểm tra Hàm <code>handleRoot()</code> trong C++. Tìm dòng lệnh <code>server.send(200, "text/html; charset=utf-8", html);</code>. Đảm bảo chắc chắn tham số thứ 2 viết đúng là <code>"text/html"</code> (Chứ không phải "text/plain").</td>
         </tr>
         <tr>
-            <td>Bấm nút trên Web ngon lành, Giao diện Web tự tin báo chữ "ĐANG SÁNG", nhưng cái <strong>Bóng Đèn LED vật lý trên bàn chết im lìm</strong> không nhúc nhích.</td>
-            <td>Bất đồng bộ Phần cứng (Hardware Mapping Error). Web Server phần mềm đang chạy tốt trên Ram của chip, nó đã xuất lệnh mở điện ra đúng chân GPIO lập trình, nhưng bạn cắm sai lỗ cắm vật lý trên Breadboard.</td>
-            <td>Mở đèn pin Điện thoại soi lại sát sàn sạt Breadboard. Code C++ đang quy định <code>#define LED_PIN 12</code> (tức là Lỗ D6). Phải cắm chân dài của LED nối tiếp qua trở tọc đúng vào lỗ D6. Chân ngắn cắm rãnh GND chung.</td>
+            <td>Bấm nút trên Web ngon lành, Giao diện Web tự tin báo chữ "ĐANG SÁNG", nhưng <strong>Bóng Đèn vật lý trên bàn chết im lìm</strong> không nhúc nhích.</td>
+            <td>Bất đồng bộ Phần cứng (Hardware Mapping Error). Web Server đang xuất lệnh mở điện ra đúng chân GPIO lập trình, nhưng bạn cắm sai lỗ vật lý trên Breadboard.</td>
+            <td>Mở đèn pin Điện thoại soi lại sát sàn sạt Breadboard. Code quy định <code>#define LED_PIN 12</code> (Lỗ D6). Phải cắm chân dài của LED nối tiếp qua trở tọc đúng vào lỗ D6.</td>
         </tr>
         <tr>
-            <td>Sử dụng tên miền ảo mDNS (Vd: <code>http://sv-tuananh.local</code>) không tải được Web, phải gõ IP số mới tải được.</td>
-            <td>Hệ điều hành thiết bị duyệt Web của bạn thiếu Dịch vụ Phân giải Đa hướng (Bonjour/Zeroconf). Lỗi này thường hay gặp trên các máy tính xài Windows 10/11 cũ chưa cập nhật, trong khi iPhone/Macbook thì ăn ngay.</td>
-            <td>Nếu xài Windows, hãy tải và cài bộ Apple Bonjour Print Services. Hoặc đơn giản hóa vấn đề: Hãy tạm chấp nhận sử dụng dãy số IP cứng (192.x.x.x) để tiến hành Nghiệm thu qua bước bài Lab này.</td>
+            <td>Gõ tên miền ảo mDNS (Vd: <code>http://sv-tuananh.local</code>) không tải được Web, phải gõ số IP mới tải được.</td>
+            <td>Hệ điều hành máy tính của bạn thiếu Dịch vụ Phân giải Đa hướng (Bonjour/Zeroconf). Lỗi này cực kỳ phổ biến trên các máy tính Windows cũ, trong khi iPhone/Macbook thì ăn ngay.</td>
+            <td>Nếu xài Windows, hãy tải và cài bộ Apple Bonjour Print Services. Hoặc đơn giản hóa vấn đề: Hãy tạm chấp nhận sử dụng dãy số IP cứng để tiến hành Nghiệm thu.</td>
         </tr>
     </table>
 
     <!-- 16. TỰ ĐÁNH GIÁ & MỞ RỘNG -->
-    <h2 id="danh-gia">16. Tự đánh giá & Bài tập Thiết kế Mở rộng</h2>
+    <h2 id="danh-gia">🏆 16. Tự đánh giá & Bài tập Thiết kế Mở rộng</h2>
     <div class="section-card">
         <h3>Bài tập Tư duy Kiến trúc Web Server:</h3>
         <ol>
-            <li>Trong thuật toán C++ xử lý <code>handleLedOn()</code>, tại sao vị Kiến trúc sư thiết kế bộ Code này (Phần 13) lại bắt buộc dùng lệnh <code>server.send(303)</code> kèm việc điều hướng Redirect trả về Header <code>Location: /</code> thay vì nhét trực tiếp một khối HTML cục mịch chứa dòng chữ "Đã bật đèn" để trả về cho Trình duyệt? Hành động Redirect quay xe này giúp ngăn chặn hiểm họa tồi tệ gì từ phía người dùng Chrome? (Gợi ý: Tìm hiểu Hiện tượng "Confirm Form Resubmission" - F5 nạp đạn 2 lần).</li>
-            <li>Ở phần Front-End giao diện HTML thô, nếu một gã thợ code tồi tay xóa bỏ cái dòng siêu dữ liệu <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code>, thì thảm họa hiển thị Trải nghiệm người dùng (UX) gì sẽ bị giáng xuống khi bạn mở trang Web đó trên cái màn hình dọc bé xíu của Smartphone?</li>
+            <li>Trong thuật toán xử lý <code>handleLedOn()</code> (Khối 3), tại sao Kiến trúc sư bắt buộc dùng lệnh <code>server.send(303)</code> kèm việc điều hướng Redirect trả về Header <code>Location: /</code> thay vì nhét trực tiếp một khối HTML cục mịch chứa dòng chữ "Đã bật đèn" để trả về cho Trình duyệt? Hành động Redirect "quay xe" này giúp ngăn chặn hiểm họa tồi tệ gì từ phía người dùng Chrome? (Gợi ý: Tìm hiểu Hiện tượng F5 nạp đạn 2 lần).</li>
+            <li>Ở phần HTML thô, nếu một gã thợ code tồi tay xóa bỏ dòng <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code>, thì thảm họa hiển thị Trải nghiệm người dùng (UX) gì sẽ bị giáng xuống khi mở Web đó trên màn hình dọc của Smartphone?</li>
         </ol>
 
-        <h3>Mini Tasks Chinh phục (Thực hành Nâng cấp Lõi Front-End ngay tại Lab):</h3>
-        <div class="student-box callout">
-            <span class="callout-title">Nhiệm vụ 1: Cổ Điển - Vũ Khí Tự Động Làm Mới (HTML Meta Refresh)</span>
-            Để khắc phục điểm chết nhục nhã "Cứ phải vuốt màn hình kéo F5 bằng tay thì mới thấy nhiệt độ Sensor thay đổi". Giải pháp Công nghệ Web 1.0 cơ bản, thô sơ nhất là dùng Thẻ <strong>Meta Refresh</strong>. 
-            <br>=> <strong>Yêu cầu Cấy ghép:</strong> Hãy tìm tới khối Raw String <code>MAIN_page</code> trong C++. Cấy thêm một dòng thẻ HTML mã nhỏ xíu (Ví dụ: <code>&lt;meta http-equiv="refresh" content="5"&gt;</code>) nhét vào bên trong khu vực bộ não cặp thẻ <code>&lt;head&gt;</code>. Nạp code và ngồi khoanh tay quan sát xem trang web trên điện thoại có Tự Động chớp Reload giật cục mỗi 5 giây 1 lần không.
+        <h3 style="margin-top: 25px;">Thử thách Phòng Lab (Kỹ năng Bảo mật & Front-End):</h3>
+        <div class="student-box callout" style="border-color: #f44336; background: #ffebee;">
+            <span class="callout-title" style="color: #c62828;">Nhiệm vụ 1: Lỗ Hổng Mạng LAN - Triển Khai URL Token Authentication</span>
+            Như đã cảnh báo ở phần 9, một khi bạn online trong cùng WiFi, gã hàng xóm gõ IP của bạn kèm đuôi <code>/led_on</code> là đèn nhà bạn sáng! Hãy thiết lập một lớp bảo mật Token đơn giản.
+            <br>=> <strong>Nhiệm vụ tác chiến:</strong> Bạn hãy chỉnh sửa C++ hàm <code>handleLedOn()</code>. Sử dụng hàm <code>server.hasArg("token")</code> và <code>server.arg("token")</code> để yêu cầu đường dẫn bật đèn phải chứa đúng một mã khóa (Ví dụ: <code>/led_on?token=123</code>). Nếu không có Token hoặc sai mã số 123, hãy thẳng tay quăng lại lỗi mã HTTP 403 (Forbidden) hoặc 401 (Unauthorized) từ chối phục vụ!
         </div>
+        
         <div class="student-box callout">
-            <span class="callout-title">Nhiệm vụ 2: Hiện Đại - Cập Nhật Mượt Không Chớp Trang (Sức mạnh AJAX)</span>
-            Việc dùng Meta Refresh làm load lại toàn bộ khung trang Web gây chớp tắt là một Trải nghiệm người dùng (UX) cực kỳ hạ cấp. Một Full-stack Developer thực thụ sẽ sử dụng công nghệ <strong>AJAX (Asynchronous JavaScript)</strong> hoặc hàm <strong>Fetch API</strong> tân tiến.
-            <br>=> <strong>Nhiệm vụ Phân Rã (Tự Học Mở Rộng):</strong> 
-            <br>- Tại tầng NodeMCU Back-end: Bạn thiết lập thêm 1 cái Endpoint Route mới tĩnh (VD: <code>server.on("/get_data", [](){ server.send(200, "text/plain", String(dht.readTemperature())); });</code>).
-            <br>- Tại tầng mã HTML Front-end: Bạn chèn thêm cặp thẻ <code>&lt;script&gt;</code> ở cuối, viết một vòng lặp JavaScript nhỏ gọi hàm <code>setInterval</code> để tự động gửi lệnh <code>fetch('/get_data')</code> ngầm dưới đáy biển, lôi số liệu về và thay ruột Text dán đè lên cái thẻ Nhiệt độ mà không hề làm Refresh giật trang web. <em>Hãy tra cứu Google từ khóa "ESP8266 AJAX update sensor" để thăng hạng trình độ lập trình Web App Nhúng của bạn!</em>
+            <span class="callout-title">Nhiệm vụ 2: AJAX Update (Nâng cấp Cập Nhật Mượt Không Chớp Trang)</span>
+            Việc người dùng phải F5 tải lại toàn bộ khung trang Web để xem nhiệt độ là một Trải nghiệm (UX) cực kỳ hạ cấp. Một Full-stack Developer sẽ sử dụng công nghệ <strong>AJAX (Asynchronous JavaScript)</strong> hoặc hàm <strong>Fetch API</strong> tân tiến.
+            <br>=> <strong>Nhiệm vụ Tự Học Mở Rộng:</strong> 
+            <br>- Tại Back-end C++: Bạn thiết lập thêm 1 cái Endpoint API mới (VD: <code>server.on("/get_data", [](){ server.send(200, "text/plain", String(currentTemp)); });</code>).
+            <br>- Tại Front-end HTML: Bạn chèn thêm thẻ <code>&lt;script&gt;</code>, viết một hàm JavaScript dùng <code>setInterval</code> tự động gửi lệnh <code>fetch('/get_data')</code> ngầm dưới nền để lôi số liệu về và thay ruột Text dán đè lên cái thẻ Nhiệt độ mà không hề làm chớp màn hình trang web.
         </div>
     </div>
 
     <!-- 17. MENTORING CHO GIẢNG VIÊN -->
-    <h2 id="mentor">17. Sổ tay Điều phối dành riêng cho Giảng viên / Mentor</h2>
+    <h2 id="mentor">👨‍🏫 17. Lời nhắn nhủ từ Mentor trước giờ thực chiến</h2>
     <div class="mentor-box callout">
-        <span class="callout-title">Kịch bản Điều phối Thực chiến tại Lab 6 (Web Server & Mạng LAN)</span>
-        <ul>
-            <li><strong>Màn Phá Băng Đặt Vấn đề (Quyền Làm Chủ Dữ Liệu Tối Thượng):</strong> Bắt đầu buổi Lab, Mentor hãy khơi gợi ranh giới tư tưởng triết lý An ninh mạng. <em>"Các Lab 3, 4, 5 trước đây, dữ liệu nhạy cảm Camera, Nhiệt độ trong phòng ngủ của các em bắt buộc phải bay vòng nửa vòng trái đất qua cái Server bên nước Mỹ của Blynk, Telegram rồi mới vòng ngược về cái App Điện thoại ở Việt Nam. Khá phi lý và rủi ro rò rỉ dữ liệu (Data Privacy) đúng không? Hôm nay, Lab 6 sẽ dạy cách cắt đứt sợi cáp Internet ra ngoài đại dương. Dữ liệu chỉ chạy cục bộ vỏn vẹn trong khoảng cách 5 mét từ Mạch phát sóng Wifi đâm thẳng vào màn hình Laptop của em. Không một gã khổng lồ nào được phép thu thập. Đây chính là giải pháp cốt lõi cho các hệ thống Nhà Máy Sản xuất Công Nghiệp Thông minh Cục bộ vây kín (On-Premises)!"</em>. Lời dẫn này khơi gợi sự tự hào và hứng thú khi sinh viên chính thức được tự tay cấu trúc dựng nên 1 Máy Chủ (Server) thực thụ đầu đời.</li>
-            <li><strong>Thủ thuật Chống Bẫy "Mù Mạng" LAN Tòa Nhà:</strong> Đây là Cơn Ác Mộng Cấp Độ 1 khi dạy bài Lab Server Cục bộ ở diện rộng lớp đông. Gần như 100% Cục phát WiFi các tòa nhà Giảng đường Đại Học đều bị IT cấu hình kích hoạt giao thức <em>AP Client Isolation (Cách ly Client)</em> để ngăn Sinh viên lây Virus WannaCry qua mạng LAN. Hậu quả tức tưởi: Bo Mạch và Máy tính Laptop dù cùng bắt sóng chung 1 tên WiFi Giảng đường nhưng khi ping chéo cho nhau sẽ bị Block Timeout chết cứng. <strong>Phương án Sinh tử trên lớp:</strong> Mentor phải ép buộc và ra lệnh các nhóm sinh viên phải hi sinh dùng 1 cái điện thoại cá nhân gạt nút phát mạng Hotspot 4G. Sau đó dùng Laptop và Board cùng chui vào bắt sóng điểm trạm Hotspot cá nhân độc lập đó để tránh sự kiểm duyệt của Tường lửa Trường.</li>
-            <li><strong>Thẩm mỹ Kiến trúc Mã nguồn C++ (Kỹ thuật Raw String Literal):</strong> Giảng viên nên dành 3-5 phút mở màn hình máy chiếu Code, phân tích mổ xẻ vì sao ta nên vứt vào sọt rác cái cấu trúc code Cổ Đại <code>client.println("&lt;h1 class=\"btn\"&gt;")</code> của giáo trình thời cũ. So sánh sự khốn khổ của cách viết cộng dồn từng dòng chuỗi (văng lỗi tung tóe vì kẹt Dấu nháy kép Escape Character) so với sự thanh tao của cách dùng Dấu phân cách bọc khung <code>R"=====( HTML Của tôi ở đây )====="</code>. Định hướng Sinh viên: Kỹ thuật lập trình hiện đại yêu cầu sự phân ly rạch ròi vô trùng giữa Tầng Giao diện (View/HTML) và Tầng Điều khiển Lõi (Controller/C++).</li>
-            <li><strong>Màn Đánh giá Nghiệm thu Tại Bàn (Thử thách Real-time Không Chạm):</strong> Bắt sinh viên biểu diễn Nhiệm vụ Auto-refresh (Dùng thẻ Meta). Mentor đi tuần tra mang theo một cái hộp quẹt bật lửa, hơ nóng nhẹ đầu cảm biến DHT11 của nhóm sinh viên, sau đó khoanh tay lùi lại đứng yên cách xa 1 mét quan sát màn hình điện thoại của các em đặt trên bàn. Tuyệt đối không ai được lấy tay vuốt màn hình kéo F5. Nếu trình duyệt tự động chớp nháy và nảy số mới sau 5 giây. Hệ thống vượt qua bài Test Tự Động Hóa.</li>
+        <span class="callout-title">Những quy tắc sinh tồn khi dựng Server Cục Bộ:</span>
+        <ul style="margin-top: 10px;">
+            <li><strong>Quyền Làm Chủ Dữ Liệu Tối Thượng:</strong> Ở các Lab 3, 4, 5, nếu Server Mỹ sập, mạch của em thành cục gạch. Hôm nay, Lab 6 dạy em cách cắt đứt sợi cáp Internet đại dương. Dữ liệu chỉ chạy cục bộ vỏn vẹn trong khoảng cách 5 mét từ Mạch phát Wifi đâm thẳng vào màn hình Laptop. Không một gã khổng lồ đám mây nào được thu thập thông tin nhà em. Đây chính là giải pháp cốt lõi cho các Hệ thống Nhà Máy Sản xuất (On-Premises) cực kỳ bảo mật!</li>
+            <li><strong>Thoát khỏi Bẫy "Mù Mạng" LAN:</strong> Cơn ác mộng lớn nhất của Lab này là mạng WiFi của nhà trường. IT Trường thường bật tính năng <em>AP Client Isolation</em> để ngăn lây Virus nội bộ. Hậu quả là dù Bo Mạch và Laptop cùng bắt chung 1 tên WiFi Giảng đường nhưng khi ping chéo cho nhau sẽ bị Timeout chết cứng. Nếu dính bẫy này, em bắt buộc phải lấy điện thoại cá nhân tự phát mạng Hotspot 4G rồi cho Laptop và Mạch chui vào để tạo thành 1 mạng LAN nội bộ khép kín.</li>
+            <li><strong>Thẩm mỹ Kiến trúc Mã nguồn C++ (Raw String):</strong> Mentor sẽ trừ điểm nếu thấy em lôi cái cấu trúc code Cổ Đại <code>client.println("&lt;h1 class=\"btn\"&gt;")</code> vào bài. Việc cộng dồn chuỗi kiểu đó cực kỳ dễ văng lỗi vì kẹt Dấu Nháy Kép (Escape Character). Hãy sử dụng kiến trúc thanh tao <code>R"=====( HTML Của tôi ở đây )====="</code>. Kỹ thuật lập trình hiện đại yêu cầu sự phân ly vô trùng rạch ròi giữa Tầng Giao diện (HTML) và Tầng Điều khiển Lõi (C++).</li>
+            <li><strong>Kiến thức Bảo mật Tiên quyết:</strong> Đừng bao giờ lầm tưởng IP là Mật khẩu. IP <code>192.168.x.x</code> giống như Số Nhà. Một khi em mở Web Server ở nhà, bất cứ vị khách nào vào chơi xin pass WiFi cũng có thể tự do mở Chrome gõ IP để tắt bật đèn phòng ngủ của em. Bắt buộc phải thử sức với bài toán xác thực Token ở Nhiệm vụ Mở rộng để rèn luyện tư duy Cyber Security (An ninh mạng) cơ bản nhất!</li>
         </ul>
     </div>
 
-    <hr style="margin-top:40px; border-top: 1px solid #ccc;">
-
-    <div class="note-box callout">
-        <span class="callout-title">Nhật ký Biên tập Học thuật (Phản hồi Chuyên môn gửi Tác giả Giáo trình Gốc)</span>
-        <p><strong>Báo cáo Tái cấu trúc Căn bản Toàn diện (Lab_6_Local_HTTP_Server.pdf):</strong></p>
-        <p>- <strong>Loại bỏ Sự Bất Nhất Phân liệt trong Kiến trúc Thư viện Server (Critical Structural Upgrade):</strong> Trong sách PDF nguyên bản, có một sự chắp vá nghiêm trọng về mặt Phương pháp Sư phạm Lập trình. Tại ví dụ mục 1.2 (Điều khiển LED), giáo trình sử dụng cấu trúc thư viện cấp thấp thô sơ <code>WiFiServer server(80)</code>, đè đầu ép sinh viên phải phân tích bóc tách chuỗi Request HTTP bằng sức người thông qua các vòng lặp <code>client.read()</code> và lệnh tìm kiếm <code>indexOf("GET /on")</code> vô cùng lạc hậu, tốn dòng và cực kỳ dễ dính lỗi treo tràn RAM. Sự khủng hoảng đến ở mục 2.2 (Đọc DHT11), giáo trình lại "quay ngoắt 180 độ" vứt bỏ cái cũ, nhảy sang sử dụng kiến trúc thư viện cấp cao <code>ESP8266WebServer</code> với cơ chế Routing <code>server.on()</code> ưu việt hiện đại của Node.js. Sự mâu thuẫn này gây hoang mang tột độ cho người mới học khi họ muốn gộp 2 tính năng vào 1 file Đồ án. Ở bản Chuẩn hóa HTML này, <strong>toàn bộ tài liệu được đập đi xây lại móng bằng một kiến trúc duy nhất: <code>ESP8266WebServer</code></strong>. Mọi sự tương tác được quản trị gọn gàng, quy chuẩn thông qua các Hàm Định tuyến Endpoint (Routing API).<br>
-        - <strong>Xóa sổ Cú pháp Nối chuỗi & Thoát ký tự Địa ngục (Escape Character Hell):</strong> Các đoạn mã in Web ở giáo trình cũ kiểu <code>client.println("&lt;meta name=\"viewport\"&gt;");</code> chứa quá nhiều dấu xuyệt chéo <code>\"</code> được cộng đồng đánh giá là "liều thuốc độc" gây lỗi cú pháp Compile C++. Ở bản mới này, tôi đã áp dụng triệt để kỹ thuật <strong>Raw String Literals</strong> <code>R"====(...)===="</code>. Sự nâng cấp cải tiến này thực sự là một cuộc cách mạng Nhúng, giúp sinh viên tha hồ sao chép Copy thẳng nguyên xi 1 file HTML/CSS/JS siêu đẹp từ bên ngoài VS Code dán thẳng tuột vào biến nhớ Flash tĩnh (PROGMEM) với khối lượng khổng lồ mà không sợ sập bộ nhớ tĩnh hay văng cả ngàn lỗi dính Dấu nháy.</p>
+    <!-- FOOTER BẢN QUYỀN TRƯỜNG -->
+    <div class="footer">
+        <p class="highlight">Bản quyền nội dung thuộc về Khoa Điện - Điện Tử, Trường Kỹ Thuật Phenikaa, Đại Học Phenikaa.</p>
+        <p>Giảng viên biên soạn & Thiết kế kỹ thuật: <strong>ThS. Đinh Văn Nam</strong></p>
+        <p style="font-size: 0.8em; margin-top: 15px; opacity: 0.8;">Tài liệu lưu hành nội bộ phục vụ đào tạo hệ sinh thái Embedded/IoT.</p>
     </div>
-
-    <p style="text-align:center; color: #888; font-size: 0.9em; margin-top: 30px;">
-        <em>Tài liệu được Chuẩn hóa Cấu trúc Kiến trúc Mạng theo định hướng Triết lý Kỹ sư Hệ thống (Mentor-Guided). Chinh phục thành công việc xử lý tự chủ Phân định Client Request ở Lab 6 chính là lời khẳng định bạn đã trang bị đủ nền tảng Network I/O vững chãi nhất để bước vào Trận chiến sinh tử cuối cùng về Phần Mềm: Xử lý Giao dịch Cơ sở Dữ liệu Đám mây Firebase khổng lồ ở Lab 7.</em>
-    </p>
 
 </div>
 
